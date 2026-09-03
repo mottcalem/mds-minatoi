@@ -8,6 +8,14 @@ import LocalizedClientLink from "@modules/common/components/localized-client-lin
 import CartButton from "@modules/layout/components/cart-button"
 import SideMenu from "@modules/layout/components/side-menu"
 
+const navigation = [
+  { label: "Cam tablolar", href: "/store" },
+  { label: "Kişiye özel", href: "/store" },
+  { label: "Ahşap tablolar", href: "/store" },
+  { label: "Metal tablolar", href: "/store" },
+  { label: "Patili dostlar", href: "/store" },
+]
+
 export default async function Nav() {
   const [regions, locales, currentLocale] = await Promise.all([
     listRegions().then((regions: StoreRegion[]) => regions),
@@ -16,43 +24,51 @@ export default async function Nav() {
   ])
 
   return (
-    <div className="sticky top-0 inset-x-0 z-50 group">
-      <header className="relative h-16 mx-auto border-b duration-200 bg-white border-ui-border-base">
-        <nav className="content-container txt-xsmall-plus text-ui-fg-subtle flex items-center justify-between w-full h-full text-small-regular">
-          <div className="flex-1 basis-0 h-full flex items-center">
-            <div className="h-full">
-              <SideMenu regions={regions} locales={locales} currentLocale={currentLocale} />
-            </div>
+    <div className="sticky inset-x-0 top-0 z-50 bg-white">
+      <div className="flex min-h-10 items-center justify-center bg-[#f7d84b] px-6 text-center text-[11px] font-medium tracking-wide text-[#171717]">
+        Tüm ürünlerde avantajlı fiyatlar ve Türkiye&apos;nin her yerine güvenli teslimat
+      </div>
+      <header className="border-b border-[#e5e2dc] bg-white">
+        <nav className="content-container flex h-[78px] w-full items-center justify-between">
+          <div className="flex h-full flex-1 basis-0 items-center lg:hidden">
+            <SideMenu regions={regions} locales={locales} currentLocale={currentLocale} />
           </div>
 
-          <div className="flex items-center h-full">
-            <LocalizedClientLink
-              href="/"
-              className="txt-compact-xlarge-plus hover:text-ui-fg-base uppercase"
-              data-testid="nav-store-link"
-            >
-              Medusa Store
-            </LocalizedClientLink>
-          </div>
+          <LocalizedClientLink
+            href="/"
+            className="text-xl font-black tracking-[-0.045em] text-[#111] small:text-2xl"
+            data-testid="nav-store-link"
+          >
+            MINATOI
+          </LocalizedClientLink>
 
-          <div className="flex items-center gap-x-6 h-full flex-1 basis-0 justify-end">
-            <div className="hidden small:flex items-center gap-x-6 h-full">
+          <div className="ml-12 hidden h-full items-center gap-7 lg:flex">
+            {navigation.map((item) => (
               <LocalizedClientLink
-                className="hover:text-ui-fg-base"
-                href="/account"
-                data-testid="nav-account-link"
+                key={item.label}
+                href={item.href}
+                className="flex h-full items-center text-[11px] font-semibold uppercase tracking-[0.13em] text-[#262626] transition-colors hover:text-[#bd8750]"
               >
-                Account
+                {item.label}
               </LocalizedClientLink>
-            </div>
+            ))}
+          </div>
+
+          <div className="flex h-full flex-1 basis-0 items-center justify-end gap-x-5 text-xs font-medium">
+            <LocalizedClientLink
+              className="hidden uppercase tracking-[0.1em] text-[#333] hover:text-[#bd8750] small:block"
+              href="/account"
+              data-testid="nav-account-link"
+            >
+              Hesabım
+            </LocalizedClientLink>
             <Suspense
               fallback={
                 <LocalizedClientLink
-                  className="hover:text-ui-fg-base flex gap-2"
                   href="/cart"
                   data-testid="nav-cart-link"
                 >
-                  Cart (0)
+                  Sepet (0)
                 </LocalizedClientLink>
               }
             >
