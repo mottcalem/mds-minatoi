@@ -26,10 +26,6 @@ export default async function Home(props: {
     listProducts({ countryCode, queryParams: { limit: 3 } }),
   ])
 
-  if (!collections || !region) {
-    return null
-  }
-
   return (
     <>
       <Hero products={response.products} />
@@ -42,11 +38,13 @@ export default async function Home(props: {
         </div>
       </section>
       <PromoBanner />
-      <div className="py-12">
-        <ul className="flex flex-col gap-x-6">
-          <FeaturedProducts collections={collections} region={region} />
-        </ul>
-      </div>
+      {collections && region && (
+        <div className="py-12">
+          <ul className="flex flex-col gap-x-6">
+            <FeaturedProducts collections={collections} region={region} />
+          </ul>
+        </div>
+      )}
     </>
   )
 }
