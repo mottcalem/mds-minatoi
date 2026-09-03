@@ -7,6 +7,7 @@ import { StoreRegion } from "@medusajs/types"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import CartButton from "@modules/layout/components/cart-button"
 import SideMenu from "@modules/layout/components/side-menu"
+import Image from "next/image"
 
 const navigation = [
   { label: "Cam tablolar", href: "/store" },
@@ -36,10 +37,17 @@ export default async function Nav() {
 
           <LocalizedClientLink
             href="/"
-            className="text-xl font-black tracking-[-0.045em] text-[#111] small:text-2xl"
+            className="flex items-center"
             data-testid="nav-store-link"
           >
-            MINATOI
+            <Image
+              src="/images/minatoi-logo.jpg"
+              alt="Minatoi"
+              width={160}
+              height={41}
+              priority
+              className="h-auto w-[126px] small:w-[150px]"
+            />
           </LocalizedClientLink>
 
           <div className="ml-12 hidden h-full items-center gap-7 lg:flex">

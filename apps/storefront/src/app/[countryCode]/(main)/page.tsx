@@ -5,7 +5,6 @@ import Hero from "@modules/home/components/hero"
 import PromoBanner from "@modules/home/components/promo-banner"
 import { listCollections } from "@lib/data/collections"
 import { getRegion } from "@lib/data/regions"
-import { listProducts } from "@lib/data/products"
 
 export const metadata: Metadata = {
   title: "Minatoi | Yaşam Alanınıza Özel Sanat",
@@ -20,15 +19,14 @@ export default async function Home(props: {
 
   const { countryCode } = params
 
-  const [region, { collections }, { response }] = await Promise.all([
+  const [region, { collections }] = await Promise.all([
     getRegion(countryCode),
     listCollections({ fields: "id, handle, title" }),
-    listProducts({ countryCode, queryParams: { limit: 3 } }),
   ])
 
   return (
     <>
-      <Hero products={response.products} />
+      <Hero />
       <section className="border-b border-[#e5e2dc] bg-white">
         <div className="content-container grid grid-cols-2 gap-x-5 gap-y-6 py-7 text-center text-xs font-medium text-[#34312d] medium:grid-cols-4">
           <p>UV direkt baskı</p>
